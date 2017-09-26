@@ -6,7 +6,9 @@
 
 <!-- Like button -->
 <%= form_with model: @photo, method: :patch do |f| %>
-  <%= f.button @photo.liked_by?(current_user) ? 'Unlike' : 'Like', class: 'btn btn-secondary' %>
+  <% liked = @photo.liked_by?(current_user) %>
+  <%= f.hidden_field :liked, value: liked %>
+  <%= f.button liked ? 'Unlike' : 'Like', class: 'btn btn-secondary' %>
   <%= link_to 'Comments', photo_comments_path(@photo), class: 'btn btn-secondary' %>
 <% end %>
 
