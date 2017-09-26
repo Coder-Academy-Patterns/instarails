@@ -1,0 +1,8 @@
+<div>
+  <p>
+    <strong><%= comment.user.email %></strong>
+    <%= comment.content %>
+  </p>
+  <td><%= link_to 'Edit', edit_photo_comment_path(photo, comment) %></td>
+  <td><%= link_to 'Destroy', [photo, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</div>

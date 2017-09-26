@@ -6,13 +6,18 @@
 
 <!-- Like button -->
 <%= form_with model: @photo, method: :patch do |f| %>
-  <%= f.button @photo.liked_by?(current_user) ? 'Unlike' : 'Like' %>
+  <%= f.button @photo.liked_by?(current_user) ? 'Unlike' : 'Like', class: 'btn btn-secondary' %>
+  <%= link_to 'Comments', photo_comments_path(@photo), class: 'btn btn-secondary' %>
 <% end %>
 
 <p>
   <strong><%= @photo.user.email %></strong>
   <%= @photo.description %>
 </p>
+
+<section>
+  <%= render @photo.comments, photo: @photo %>
+</section>
 
 <% if current_user == @photo.user %>
   <%= link_to 'Edit', edit_photo_path(@photo) %> ·
