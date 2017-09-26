@@ -34,7 +34,11 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1.json
   def update
     respond_to do |format|
-      if @profile.update(profile_params)
+      if is_follow_action?
+        @profile.user.toggle_followed_by(current_user)
+        format.html { redirect_to @profile.user }
+        format.json { render :show, status: :ok, location: @profile }
+      elsif @profile.update(profile_params)
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
       else
@@ -57,11 +61,21 @@ class ProfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
-      @profile = Profile.find_by(user: current_user)
+      # Looking at someone else’s profile
+      if params[:id]
+        @profile = Profile.find(params[:id])
+      # Current user’s profile
+      else
+        @profile = Profile.find_by(user: current_user)
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
       params.require(:profile).permit(:username, :name, :bio)
+    end
+
+    def is_follow_action?
+      params.require(:user)[:follow].present?
     end
 end

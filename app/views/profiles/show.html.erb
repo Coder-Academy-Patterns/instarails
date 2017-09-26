@@ -24,4 +24,11 @@
   </p>
 </div>
 
-<%= link_to 'Edit', edit_profile_path %>
+<% if @profile.user == current_user %>
+  <%= link_to 'Edit', edit_profile_path, class: 'btn btn-secondary btn-block' %>
+<% else %>
+  <%= form_with(model: @profile.user, method: :patch) do |f| %>
+    <%= f.hidden_field :follow, value: true %>
+    <%= f.button @profile.user.followed_by?(current_user) ? 'Unfollow' : 'Follow', class: 'btn btn-primary btn-block' %>
+  <% end %>
+<% end %>
