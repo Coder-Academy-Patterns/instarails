@@ -7,5 +7,5 @@ Shrine.storages = {
 }
 
 Shrine.plugin :activerecord
+Shrine.plugin :logging, logger: Rails.logger
 Shrine.plugin :cached_attachment_data # for forms
-#Shrine.plugin :rack_file # for non-Rails apps
