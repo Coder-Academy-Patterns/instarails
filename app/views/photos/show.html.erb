@@ -9,5 +9,8 @@
   <%= @photo.description %>
 </p>
 
-<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<% if current_user == @photo.user %>
+  <%= link_to 'Edit', edit_photo_path(@photo) %> ·
+  <%= link_to 'Destroy', @photo, method: :delete, data: { confirm: 'Are you sure?' } %> ·
+<% end %>
 <%= link_to 'Back', photos_path %>
