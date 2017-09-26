@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h1 class="mt-3">Instarails</h1>
+      <img src="<%= asset_url('3q3a0859.jpg') %>" class="img-fluid">
+    </div>
+    <div class="col">
+      <h2 class="mt-3">The number two photo social app</h2>
+      <nav>
+        <% if user_signed_in? %>
+          <%= link_to 'Edit account', edit_user_registration_path, class: 'btn btn-primary' %>
+          <%= link_to 'Sign out', destroy_user_session_path, class: 'btn btn-light', method: :delete %>
+        <% else %>
+          <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-primary' %>
+          <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary' %>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>
