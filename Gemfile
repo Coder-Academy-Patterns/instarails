@@ -34,6 +34,12 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
+
+gem 'shrine'
+gem 'image_processing'
+gem 'mini_magick'
+gem 'fastimage' # for store_dimensions plugin
+
 gem 'bootstrap', '~> 4.0.0.beta'
 
 group :development, :test do
