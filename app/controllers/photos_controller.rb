@@ -42,7 +42,12 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1.json
   def update
     respond_to do |format|
-      if @photo.update(photo_params)
+      if is_liking?
+        # Toggle whether this photo is liked by the current user
+        @photo.toggle_liked_by(current_user)
+        format.html { redirect_to @photo }
+        format.json { render :show, status: :ok, location: @photo }
+      elsif @photo.update(photo_params)
         format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
         format.json { render :show, status: :ok, location: @photo }
       else
@@ -71,5 +76,10 @@ class PhotosController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
       params.require(:photo).permit(:image, :description)
+    end
+
+    def is_liking?
+      # Is there a `liked` field in the form?
+      params.require(:photo)[:liked].present?
     end
 end
