@@ -1,3 +1,7 @@
-// Place all the styles related to the Profiles controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.profile-count {
+  font-size: 80%;
+}
+.profile-count::first-line {
+  font-weight: bold;
+  font-size: 150%;
+}
