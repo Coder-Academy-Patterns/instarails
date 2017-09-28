@@ -44,7 +44,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       if is_liking?
         @photo.toggle_liked_by(current_user)
-        format.html { redirect_to @photo }
+        format.html { redirect_to (request.referrer || @photo) }
         format.json { render :show, status: :ok, location: @photo }
       elsif current_user == @photo.user
         if @photo.update(photo_params)

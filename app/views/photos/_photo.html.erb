@@ -1,0 +1,20 @@
+<p>
+  <%= image_tag photo.image.url, class: 'img-fluid' %>
+</p>
+
+<!-- Like button -->
+<%= form_with model: photo, method: :patch do |f| %>
+  <% liked = photo.liked_by?(current_user) %>
+  <%= f.hidden_field :liked, value: liked %>
+  <%= f.button liked ? 'Unlike' : 'Like', class: 'btn btn-secondary' %>
+  <%= link_to 'Comments', photo_comments_path(photo), class: 'btn btn-secondary' %>
+<% end %>
+
+<p>
+  <strong><%= photo.user.email %></strong>
+  <%= photo.description %>
+</p>
+
+<section>
+  <%= render photo.comments, photo: photo %>
+</section>

@@ -20,4 +20,8 @@ class User < ApplicationRecord
       followers << user
     end
   end
+
+  def photo_feed
+    Photo.where(user: following).order(created_at: :desc)
+  end
 end
