@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Challenges
 
-Things you may want to cover:
+## From Profiles
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Upload a few photos and reassign them to the other users — hint: `change the user attribute of the photo using rails console`
+2. Add a 3 column photo grid to the profile show page
+3. Create a page showing the top 10 users with the most amount of followers
