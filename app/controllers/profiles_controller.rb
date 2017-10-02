@@ -21,7 +21,8 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    @profile = Profile.find_or_initialize_by(user: current_user)
+    # Have blank profile for form if the user hasn’t created one yet for their account
+    @profile = Profile.new(user: current_user) if @profile.nil?
   end
 
   # POST /profiles
@@ -79,7 +80,7 @@ class ProfilesController < ApplicationController
       else
         # The signed in user’s profile page
         # /profile
-        @profile = Profile.find_by!(user: current_user)
+        @profile = Profile.find_by(user: current_user)
       end
     end
 
@@ -89,6 +90,6 @@ class ProfilesController < ApplicationController
     end
 
     def performing_follow?
-      params.require(:user)[:toggle_follow].present?
+      params.dig(:user, :toggle_follow).present?
     end
 end
