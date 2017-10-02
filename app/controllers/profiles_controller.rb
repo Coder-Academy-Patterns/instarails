@@ -21,6 +21,8 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    # User is not logged in, so show them the sign up page
+    redirect_to new_user_registration_url if !user_signed_in?
     # Have blank profile for form if the user hasn’t created one yet for their account
     @profile = Profile.new(user: current_user) if @profile.nil?
   end
