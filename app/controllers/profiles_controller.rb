@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
   # GET /profiles
   # GET /profiles.json
@@ -21,8 +22,6 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    # User is not logged in, so show them the sign up page
-    redirect_to new_user_registration_url if !user_signed_in?
     # Have blank profile for form if the user hasn’t created one yet for their account
     @profile = Profile.new(user: current_user) if @profile.nil?
   end
@@ -52,6 +51,9 @@ class ProfilesController < ApplicationController
         @profile.user.toggle_followed_by(current_user)
         format.html { redirect_to @profile.user }
         format.json { render :show, status: :ok, location: @profile }
+      # One does not simply edit the profile of another user 👌
+      elsif @profile.nil? || @profile.user != current_user
+        redirect_to root_url
       elsif @profile.update(profile_params)
         format.html { redirect_to profile_path, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
