@@ -20,7 +20,9 @@
     </p>
   </div>
 
-  <% if @profile.user == current_user %>
+  <% if !user_signed_in? %>
+    
+  <% elsif @profile.user == current_user %>
     <%= link_to 'Edit', edit_profile_path(@profile) %>
   <% else %>
     <%= form_with(model: @profile.user, method: :patch) do |f| %>
