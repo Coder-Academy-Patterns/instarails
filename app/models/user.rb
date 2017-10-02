@@ -27,4 +27,8 @@ class User < ApplicationRecord
       followers << user
     end
   end
+
+  scope :top_followed, -> {
+    joins(:followers).group(:followed_id).order('count(follower_id) DESC')
+  }
 end

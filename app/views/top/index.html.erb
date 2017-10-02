@@ -1,0 +1,19 @@
+<h1>Top</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Followers</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @top_users.each do |user| %>
+      <tr>
+        <td><%= user.profile.username %></td>
+        <td><%= user.followers.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
