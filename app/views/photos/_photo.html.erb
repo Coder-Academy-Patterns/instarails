@@ -7,9 +7,11 @@
   <%= photo.description %>
 </p>
 
-<!-- Like button -->
-<%= form_with(model: photo, method: :patch) do |f| %>
-  <% liked = photo.liked_by?(current_user) %>
-  <%= f.hidden_field :liked, value: liked %>
-  <%= f.button liked ? 'Unlike' : 'Like' %>
+<% if user_signed_in? %>
+  <!-- Like button -->
+  <%= form_with(model: photo, method: :patch) do |f| %>
+    <% liked = photo.liked_by?(current_user) %>
+    <%= f.hidden_field :liked, value: liked %>
+    <%= f.button liked ? 'Unlike' : 'Like' %>
+  <% end %>
 <% end %>
